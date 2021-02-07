@@ -1,0 +1,36 @@
+{
+  "decode": {
+    "num_beams": 4,
+    "constrain_type": "dict",
+    "max_unconstraint_len": 0,
+    "unkey_uc_ratio": 1.5,
+    "do_sample": true,
+    "repetition_penalty":1.0,
+    "no_repeat_ngram_size":0,
+    "policy": {
+      "ne_group_size":1, "max_grp_uncs_len":0, "cs_beam_size":4
+    }
+  },
+  "data": {
+    "input_type": "CheapTranInput",
+    "target_lan": "yor",
+    "dict_list":["../NAACL/dict/masterlex/yo/yor-eng.masterlex.txt"],
+    "dict_cache": "./tmp/dict_cache.yor.pickle",
+    "input_filter_vocab": "../NAACL/bart/vocab/yo/vocab_0.25.pickle",
+    "input_filter_lan": "yor",
+    "default_src": "../NAACL/eng_gold_train/other_lang/eng.train.9col",
+    "key_filter_vocab": "",
+    "key_filter_label": [],
+    "key_filter_pos": null,
+    "vocab_filter_pos": null,
+    "use_srilm": false
+  },
+  "model": {
+    "train_type": "from_scratch",
+    "type": "facebook/bart-base",
+    "model": "../NAACL/bart/model/yo/facebook-bart-base_yo-comb_noise0.1_epoch_73.ckpt",
+    "custom_tokenizer": "../NAACL/bart/tokenization/yo-combine"
+  }
+}
+
+
