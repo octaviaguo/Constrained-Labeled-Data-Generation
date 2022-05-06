@@ -1,8 +1,8 @@
-Pipeline of training NER with Better Cheap Translation for low-resource languages
+# Pipeline of Constrained Labeled Data Generation for Low-Resource Named Entity Recognition
 
-# Instructions 
+## Instructions 
 
-## Update [Xie et al.(2018)](https://aclanthology.org/D18-1034.pdf)'s translation code
+### Update [Xie et al.(2018)](https://aclanthology.org/D18-1034.pdf)'s translation code
 ```
 git clone https://github.com/thespectrewithin/cross-lingual_NER.git
 
@@ -12,38 +12,35 @@ vi run_transfer_training_data.sh
 # change "OUTPUT_FILE" : path to output translated data
 
 sh run_transfer_training_data.sh
-
 ```
 
-
-## Get Wiki text
-
-### Extract from [Wikidump](https://github.com/CogComp/wikidump-preprocessing)
+### Get Wiki text
+#### Extract from [Wikidump](https://github.com/CogComp/wikidump-preprocessing)
 ```
 git clone https://github.com/CogComp/wikidump-preprocessing.git
 cd wikidump-preprocessing
 #pip install following the "Requirements" in README.md
-vim extract_wikidump.sh #Change "WIKI_LANG","WIKI_DATE", "PATH_DUMPDIR"(does not use this), "PATH_OUTDIR"(the directory for extracted texts)
+
+#then go back to .../pipeline_scripts/
+vim extract_wikidump.sh #Change "WIKI_LANG", "WIKI_DATE", "PATH_DUMPDIR", "PATH_OUTDIR"(the directory for extracted texts)
 sh extract_wikidump.sh
 ```
-### Process Wikidump results to get text (1 sentence/line) 
+#### Process Wikidump results to get text (1 sentence/line) 
 ```
-cd /shared/ruohaog/toolkits (Only on Server)
-vim wiki2text.py; #Change: lang, base, outpath, fold_threshold
-conda activate old 
-python3 wiki2text.py #Output is text, 1 doc/line
-conda activate allennlp
-vim sbd.py  #Use spacy to do sentence tokenization (needs to download pretrained spacy lm for each language; change line: nlp = spacy.load("de_core_news_sm")  )
-python3 sbd.py #Output is text, 1 sentence/line.
+python3 wiki2text.py --lang {language} --base {folder of the processed Wikidump} --output {output_file}
+#Output is text, 1 doc/line
+
+ 
+python3 sbd.py --lang {language} --input {input_file} --output {output_file} --doc_thrd {max_num_of_documents} --lm {spacy_language_model}
+#Output is text, 1 sentence/line.
 ```
 
 ## Bart Training
 ### Bart input: tfidf  
 ```
-conda activate t5
-cd /shared/ruohaog/BCT/together/backup/Better-Cheap-Translation/key_words_extract/
-cd data  #mkdir a folder to save tfidf.kw
-python3 tfidf_extract.py --train_data=/shared/ruohaog/wiki_data/de/train.txt --dev_data=/shared/ruohaog/wiki_data/de/dev.txt --rate=0.25
+cd ../key_words_extract/data
+mkdir {language_folder}  #mkdir a folder to save tfidf.kw
+python3 tfidf_extract.py --train_data=train_data_file --dev_data=development_data_file --rate=0.25
 ```
 ### Train
 Following the "Prepare data" and "Train model" in this [site](https://github.com/octaviaguo/Better-Cheap-Translation/tree/main/t5_train). Specifically, you need to: 
@@ -52,8 +49,6 @@ Following the "Prepare data" and "Train model" in this [site](https://github.com
 * train (python3 t5_train.py --config=c...)
 
 ## Cheap Translation (select best translation in dictionay with SRILM)
-### Paper code
-I just found a [github](https://github.com/mayhewsw/python-translate)
 ### Train ngram for the target language:
 ```
 git clone https://github.com/BitSpeech/SRILM.git
