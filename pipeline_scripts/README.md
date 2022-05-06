@@ -5,7 +5,6 @@
 ### Update [Xie et al.(2018)](https://aclanthology.org/D18-1034.pdf)'s translation code
 ```
 git clone https://github.com/thespectrewithin/cross-lingual_NER.git
-
 vi run_transfer_training_data.sh
 # change "WORD_TRANSLATION_FILE": path to 2-col dict
 # change "SOURCE_TRAINING_DATA": path to 2-col eng train data
@@ -21,7 +20,7 @@ git clone https://github.com/CogComp/wikidump-preprocessing.git
 cd wikidump-preprocessing
 #pip install following the "Requirements" in README.md
 
-#then go back to .../pipeline_scripts/
+#then go back to .../Constrained-Labeled-Data-Generation/pipeline_scripts/
 vim extract_wikidump.sh #Change "WIKI_LANG", "WIKI_DATE", "PATH_DUMPDIR", "PATH_OUTDIR"(the directory for extracted texts)
 sh extract_wikidump.sh
 ```
@@ -43,10 +42,10 @@ mkdir {language_folder}  #mkdir a folder to save tfidf.kw
 python3 tfidf_extract.py --train_data=train_data_file --dev_data=development_data_file --rate=0.25
 ```
 #### Train
-Following the "Prepare data" and "Train model" in this [site](https://github.com/octaviaguo/Better-Cheap-Translation/tree/main/t5_train). Specifically, you need to: 
+Follow the "Prepare data" and "Train model" in this [site](https://github.com/octaviaguo/Constrained-Labeled-Data-Generation/tree/main/t5_train). Specifically, you need to: 
 * tokenize input
 * write config file
-* train (python3 t5_train.py --config=c...)
+* train a language model (python3 t5_train.py --config=...)
 
 ### Cheap Translation (select best translation in dictionay with SRILM)
 #### Train ngram for the target language:
@@ -71,14 +70,20 @@ git clone https://github.com/CogComp/python-conll.git
 cd python-conll/bin
 ## copy "srilm.sh" "my_translate.py" into the current place; 
 ## The difference between "my_translate.py" and the github "translate.py" is: "my_translate" supports translating files, directory; "translate" translate only directory
+
+#then go back to .../Constrained-Labeled-Data-Generation/pipeline_scripts/
 vim srilm.sh #Change infolder(src to translate), outfolder, flist(the dictionary)
 sh srilm.sh
 ```
 
 
 
-
 ### CLDG Translation
+Define your translation config json file under ```.../Constrained-Labeled-Data-Generation/configs/{lang}/```.
+
+Then go back here to run:
+
 ```
+
 sh gbs_trans.sh {lang} {config.json} {GPU_index}
 ```
