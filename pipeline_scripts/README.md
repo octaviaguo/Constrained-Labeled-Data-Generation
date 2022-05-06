@@ -35,21 +35,21 @@ python3 sbd.py --lang {language} --input {input_file} --output {output_file} --d
 #Output is text, 1 sentence/line.
 ```
 
-## Bart Training
-### Bart input: tfidf  
+### Bart Training
+#### Bart input: tfidf  
 ```
 cd ../key_words_extract/data
 mkdir {language_folder}  #mkdir a folder to save tfidf.kw
 python3 tfidf_extract.py --train_data=train_data_file --dev_data=development_data_file --rate=0.25
 ```
-### Train
+#### Train
 Following the "Prepare data" and "Train model" in this [site](https://github.com/octaviaguo/Better-Cheap-Translation/tree/main/t5_train). Specifically, you need to: 
 * tokenize input
 * write config file
 * train (python3 t5_train.py --config=c...)
 
-## Cheap Translation (select best translation in dictionay with SRILM)
-### Train ngram for the target language:
+### Cheap Translation (select best translation in dictionay with SRILM)
+#### Train ngram for the target language:
 ```
 git clone https://github.com/BitSpeech/SRILM.git
 cd SRILM
@@ -61,12 +61,11 @@ cd lm/bin/i686-m64
 ```
 More details of SRILM command [here](http://www.speech.sri.com/projects/srilm/manpages/ngram.1.html).
 
-
-### Start SRILM Server from another terminal
+#### Start SRILM Server from another terminal
 cd .../SRILM/lm/bin/i686-m64
 ./ngram -lm {lm} -server-port 8181
 
-### Translate
+#### Translate
 ```
 git clone https://github.com/CogComp/python-conll.git
 cd python-conll/bin
@@ -76,31 +75,10 @@ vim srilm.sh #Change infolder(src to translate), outfolder, flist(the dictionary
 sh srilm.sh
 ```
 
-## Improve cheap translation with pretrained Bart
-### Prepare input, NER keys for Bart
-```
-sh run_process_ct.sh   #change variables
-```
-### Bart grid-beam-search; output in CoNLL03 format, IOB1
-First, modify config file. Then:
-```
-sh run_gbs.sh   #change variables
-```
 
-## NER Training
 
-## One step translation
 
+### CLDG Translation
 ```
-python3 gbs_translate.py --config=../configs/de/ccc.json
-the src_path is configured with data.default_src in ccc.json, the output file is put in directory of ./data/lll (here lll is data.target_lan configured in xxx.json)
-
-more examples:
-below two examples use better dict, input is 9 col format:
-python3 gbs_translate.py --config=../configs/gbs_hard_constrain_CheapTranInput_config.json --src_path=../tmp/001.txt --output_file=./bbb.txt --log_file=./log.txt
-python3 gbs_translate.py --config=../configs/gbs_dict_constrain_CheapTranInput_config.json --src_path=../tmp/001.txt --output_file=./bbb.txt --log_file=./log.txt
-below two examples use simple dict, for test only:
-python3 gbs_translate.py --config=../configs/gbs_hard_constrain_config_example.json --src_path=../tmp --output_file=./aaa.txt
-python3 gbs_translate.py --config=../configs/gbs_dict_constrain_config_example.json --src_format=col4 --src_path=../tmp/eng.train --output_file=./aaa.txt
-
+sh gbs_trans.sh {lang} {config.json} {GPU_index}
 ```
