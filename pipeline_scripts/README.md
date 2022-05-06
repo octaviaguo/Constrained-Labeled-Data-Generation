@@ -2,7 +2,7 @@ Pipeline of training NER with Better Cheap Translation for low-resource language
 
 # Instructions 
 
-## Update Xie's translate code
+## Update [Xie et al.(2018)](https://aclanthology.org/D18-1034.pdf)'s translation code
 ```
 git clone https://github.com/thespectrewithin/cross-lingual_NER.git
 
@@ -15,8 +15,6 @@ sh run_transfer_training_data.sh
 
 ```
 
-
-If **work on Server**, please see instructions [here](https://github.com/octaviaguo/Better-Cheap-Translation/blob/main/pipeline_scripts/instructions_on_server.md)
 
 ## Get Wiki text
 
