@@ -3,13 +3,10 @@
     "num_beams": 4,
     "constrain_type": "dict",
     "max_unconstraint_len": 0,
-    "unkey_uc_ratio": 1.5,
-    "do_sample": true,
+    "do_sample": false,
     "repetition_penalty":1.0,
     "no_repeat_ngram_size":0,
-    "policy": {
-      "ne_group_size":1, "max_grp_uncs_len":0, "cs_beam_size":4
-    }
+    "policy": {"keep_order":true, "ph_keep_order":true, "dict_policy":"O_best_NE_best"}
   },
   "data": {
     "input_type": "CheapTranInput",
@@ -18,9 +15,9 @@
     "dict_cache": "./tmp/dict_cache.yor.pickle",
     "input_filter_vocab": ".../bart/vocab/yo/vocab_0.25.pickle",
     "input_filter_lan": "yor",
-    "default_src": ".../eng_gold_train/other_lang/eng.train.9col",
+    "default_src": ".../eng_gold_train/euro_lang/eng.train.9col",
     "key_filter_vocab": "",
-    "key_filter_label": [],
+    "key_filter_label": null,
     "key_filter_pos": null,
     "vocab_filter_pos": null,
     "use_srilm": false

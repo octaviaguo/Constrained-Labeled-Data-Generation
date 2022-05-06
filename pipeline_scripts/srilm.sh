@@ -1,6 +1,6 @@
-infolder=/shared/mayhew/ner_data/conll2003_eng/eng.train
-outfolder=/shared/ruohaog/cheap_trans/new_data/de/train.conll
-flist=/shared/mayhew/IdeaArchive/umt-ner/MUSE/data/crosslingual/dictionaries/en-de.txt
+infolder=$SOURCE_DATA_FILE
+outfolder=$TARGET_DATA_FILE
+flist=$DICTIONARY_FILE
 echo 'Input file is' $infolder
 echo 'Output file is' $outfolder
 
