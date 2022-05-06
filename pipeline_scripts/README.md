@@ -79,11 +79,10 @@ sh srilm.sh
 
 
 ### CLDG Translation
-Define your translation config json file under ```.../Constrained-Labeled-Data-Generation/configs/{lang}/```.
+Define your translation config json file under ```.../Constrained-Labeled-Data-Generation/configs/{lang}/```. An example config json is provided for your reference.
 
 Then go back here to run:
 
 ```
-
 sh gbs_trans.sh {lang} {config.json} {GPU_index}
 ```
