@@ -14,11 +14,11 @@
   "data": {
     "input_type": "CheapTranInput",
     "target_lan": "yor",
-    "dict_list":["../NAACL/dict/masterlex/yo/yor-eng.masterlex.txt"],
+    "dict_list":[".../dict/masterlex/yo/yor-eng.masterlex.txt"],
     "dict_cache": "./tmp/dict_cache.yor.pickle",
-    "input_filter_vocab": "../NAACL/bart/vocab/yo/vocab_0.25.pickle",
+    "input_filter_vocab": ".../bart/vocab/yo/vocab_0.25.pickle",
     "input_filter_lan": "yor",
-    "default_src": "../NAACL/eng_gold_train/other_lang/eng.train.9col",
+    "default_src": ".../eng_gold_train/other_lang/eng.train.9col",
     "key_filter_vocab": "",
     "key_filter_label": [],
     "key_filter_pos": null,
@@ -28,8 +28,8 @@
   "model": {
     "train_type": "from_scratch",
     "type": "facebook/bart-base",
-    "model": "../NAACL/bart/model/yo/facebook-bart-base_yo-comb_noise0.1_epoch_73.ckpt",
-    "custom_tokenizer": "../NAACL/bart/tokenization/yo-combine"
+    "model": ".../bart/model/yo/facebook-bart-base_yo-comb_noise0.1_epoch_73.ckpt",
+    "custom_tokenizer": ".../bart/tokenization/yo-combine"
   }
 }
 
